@@ -6,7 +6,7 @@ $config = array(); //array com as informações do banco
 
 //a seguir vai ser criado um teste para e conectar com o bd, nesse projeto isso não terá muito valor, pois, ele não será hospedado.
 if(ENVIRONMENT == 'development'){
-	define("BASE_URL", "http://localhost/projetoy/");
+	define("BASE_URL", "http://localhost/Trabalho/CadMVC/");
 	$config['dbname'] = 'cadastro_mvc';
 	$config['host'] = 'localhost';
 	$config['dbuser'] = 'root';
