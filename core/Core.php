@@ -8,6 +8,9 @@ class Core {
 			$url .= $_GET['url'];
 		}
 		// fazendo agora o primeiro teste se algum comando para ir até uma pagina foi enviado pelo usuario
+
+		$params = array();
+
 		if(!empty($url) && $url != '/') {
 			$url = explode('/', $url);
 			array_shift($url);
@@ -17,16 +20,25 @@ class Core {
 
 			if(isset($url[0]) && !empty($url[0])){
 				$currentAction = $url[0];
+				array_shift($url);
 			} else {
 				$currentAction = 'index';
 			} 
 
-			print_r($url);
+			if(count($url) > 0){
+				$params = $url;
+			}
+
 		} else {
 			$currentController = 'homeController';
 			$currentAction = 'index';
 		}
- 		echo "CONTROLLER: ".$currentController."<br/>";
- 		echo "ACTION: ". $currentAction."<br/>";
+
+		//VAI INSTANCIAR UMA CLASSE CONTROLLER QUE ESTIVER NA VARIAVEL currentController
+		$c = new $currentController();
+
+		//serve para executar a action
+		call_user_func_array(array($c, $currentAction), $params);
+
 	}
 }
