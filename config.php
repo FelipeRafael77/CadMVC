@@ -1,27 +1,25 @@
 <?php
-/*Esse arquivo foi criado para ter somente uma conexão com o banco de dados*/
 require 'environment.php';
 
-$config = array(); //array com as informações do banco
-
-//a seguir vai ser criado um teste para e conectar com o bd, nesse projeto isso não terá muito valor, pois, ele não será hospedado.
-if(ENVIRONMENT == 'development'){
-	define("BASE_URL", "http://localhost/Trabalho/CadMVC/");
-	$config['dbname'] = 'cadastro_mvc';
+$config = array();
+if(ENVIRONMENT == 'development') {
+	define("BASE_URL", "http://localhost/classificados_mvc/");
+	$config['dbname'] = 'classificados';
 	$config['host'] = 'localhost';
 	$config['dbuser'] = 'root';
 	$config['dbpass'] = '';
-
-}else{
-	$config['dbname'] = 'cadastro_mvc';
+} else {
+	define("BASE_URL", "http://meusite.com.br/");
+	$config['dbname'] = 'classificados';
 	$config['host'] = 'localhost';
 	$config['dbuser'] = 'root';
 	$config['dbpass'] = '';
 }
+
 global $db;
-try{
+try {
 	$db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'], $config['dbuser'], $config['dbpass']);
-}catch(PDOException $e) {
+} catch(PDOException $e) {
 	echo "ERRO: ".$e->getMessage();
 	exit;
 }

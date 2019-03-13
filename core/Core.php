@@ -1,13 +1,12 @@
 <?php
-//Aqui ele vai dar inicio a "busca"
 class Core {
-	public function run(){
-		
+
+	public function run() {
+
 		$url = '/';
-		if(isset($_GET['url'])){
+		if(isset($_GET['url'])) {
 			$url .= $_GET['url'];
 		}
-		// fazendo agora o primeiro teste se algum comando para ir até uma pagina foi enviado pelo usuario
 
 		$params = array();
 
@@ -18,14 +17,14 @@ class Core {
 			$currentController = $url[0].'Controller';
 			array_shift($url);
 
-			if(isset($url[0]) && !empty($url[0])){
+			if(isset($url[0]) && !empty($url[0])) {
 				$currentAction = $url[0];
 				array_shift($url);
 			} else {
 				$currentAction = 'index';
-			} 
+			}
 
-			if(count($url) > 0){
+			if(count($url) > 0) {
 				$params = $url;
 			}
 
@@ -34,11 +33,15 @@ class Core {
 			$currentAction = 'index';
 		}
 
-		//VAI INSTANCIAR UMA CLASSE CONTROLLER QUE ESTIVER NA VARIAVEL currentController
+		if(!file_exists('controllers/'.$currentController.'.php') || !method_exists($currentController, $currentAction)) {
+			$currentController = 'notfoundController';
+			$currentAction = 'index';
+		}
+
 		$c = new $currentController();
 
-		//serve para executar a action
 		call_user_func_array(array($c, $currentAction), $params);
-
+		
 	}
+
 }

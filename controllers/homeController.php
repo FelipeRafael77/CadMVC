@@ -1,19 +1,21 @@
 <?php
-class homeController extends controller{
+class homeController extends controller {
 
-	public function index(){
+	public function index() {
+		$dados = array();
 
-		$anuncios = new Anuncios();
-		$usuarios = new Usuarios();
+		$u = new Usuarios();
+	
 
-		$dados = array(
-			'quantidade' => $anuncios->getQuantidade(),
-			'nome' => $usuarios->getNome()
-		);
-
-
+		$total_usuarios = $u->getTotalUsuarios();
+		$lista_u = $u->getAll();
 		
+		$dados['lista_u'] = $lista_u;
+		$dados['total_usuarios'] = $total_usuarios;
+		
+
 		$this->loadTemplate('home', $dados);
+
 	}
 
 }
